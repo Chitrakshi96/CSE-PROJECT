@@ -1,0 +1,42 @@
+class ExpenseManager:
+    def __init__(self):
+        self.categories = {
+            "Food": 0,
+            "Transportation": 0,
+            "Entertainment": 0,
+            "Utilities": 0,
+            "Rent": 0,
+            "Healthcare": 0,
+            "Miscellaneous": 0
+        }
+    
+    def add_expense(self, category, amount):
+        if category in self.categories:
+            self.categories[category] += amount
+            print(f"Added ${amount} to {category}.")
+        else:
+            print("Invalid category.")
+    
+    def view_totals(self):
+        print("Expense Totals:")
+        for category, total in self.categories.items():
+            print(f"{category}: ${total}")
+    
+    def get_total_expenses(self):
+        return sum(self.categories.values())
+
+
+manager = ExpenseManager()
+while True:
+    try:
+        amount = float(input("Enter the expense amount: "))
+        category = input("Enter the category (Food, Transportation, Entertainment, Utilities, Rent, Healthcare, Miscellaneous): ").strip()
+        manager.add_expense(category, amount)
+        print(f"Total Expenses: ${manager.get_total_expenses()}")
+        cont = input("Add another expense? (y/n): ").strip().lower()
+        if cont != 'y':
+            break
+    except ValueError:
+        print("Invalid amount. Please enter a number.")
+
+manager.view_totals()
